@@ -8,7 +8,8 @@ class FileEntryStore
         
         do
         {
-            let baseUrl: URL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            
+            let baseUrl:URL = try getBaseUrl()!
             
             let fileUrls: [URL] = try FileManager.default.contentsOfDirectory(at: baseUrl, includingPropertiesForKeys: [], options: [.skipsHiddenFiles])
             
@@ -33,7 +34,8 @@ class FileEntryStore
     {
         do
         {
-            let baseUrl: URL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            
+            let baseUrl:URL = try getBaseUrl()!
             
             let fileUrl = baseUrl.appendingPathComponent(entry.id)
             
@@ -51,7 +53,7 @@ class FileEntryStore
     {
         do
         {
-            let baseUrl: URL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let baseUrl:URL = try getBaseUrl()!
             
             let fileUrl = baseUrl.appendingPathComponent(entry.id)
 
@@ -61,6 +63,16 @@ class FileEntryStore
         {
             // Suppress error to keep sample code simple
         }
+    }
+    
+    func getBaseUrl()throws -> URL? {
+        do {
+           let baseUrl: URL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            return baseUrl
+            } catch {
+                print("error")
+              return(nil)
+            }
     }
     
     static func serialize(_ entry: Entry) -> Data?

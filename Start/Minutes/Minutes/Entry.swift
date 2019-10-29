@@ -19,3 +19,4 @@ class Entry: Codable
         self.content = initialContent
     }
 }
+
